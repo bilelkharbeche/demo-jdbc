@@ -37,12 +37,14 @@ public class TestConnexionJdbc {
 		}
 
 		Connection conn = null;
+		ResultSet cursor = null;
+		Statement monStatement = null;
 
 		try {
 			conn = DriverManager.getConnection(url, userName, password);
 			System.out.println(conn);
 
-			Statement monStatement = conn.createStatement();
+			monStatement = conn.createStatement();
 
 			monStatement.executeUpdate(
 					"INSERT INTO ARTICLE(ID, DESIGNATION, FOURNISSEUR, PRIX) VALUES (1,'Table','Ikea',10)");
@@ -57,7 +59,7 @@ public class TestConnexionJdbc {
 
 			ArrayList<Article> articles = new ArrayList();
 
-			ResultSet cursor = monStatement.executeQuery("SELECT * FROM ARTICLE");
+			cursor = monStatement.executeQuery("SELECT * FROM ARTICLE");
 			while (cursor.next()) {
 				Integer id = cursor.getInt("ID");
 				String designation = cursor.getString("DESIGNATION");
@@ -72,26 +74,32 @@ public class TestConnexionJdbc {
 				System.out.println(articles.get(i));
 			}
 
-			cursor.close();
+			// cursor.close();
 
-			ResultSet curs = monStatement.executeQuery("SELECT AVG(PRIX) AS Moyenne FROM ARTICLE");
+			cursor = monStatement.executeQuery("SELECT AVG(PRIX) AS Moyenne FROM ARTICLE");
 
-			if (curs.next()) {
-				double moyenne = curs.getDouble("Moyenne");
+			if (cursor.next()) {
+				double moyenne = cursor.getDouble("Moyenne");
 				System.out.println(moyenne);
 			}
 
-			curs.close();
+			// curs.close();
 
 			monStatement.executeUpdate("DELETE FROM ARTICLE");
 
-			monStatement.close();
+			// monStatement.close();
 
 		} catch (SQLException e) {
 			LOG.error("La connexion à la base de données n'a pas pu s'établir", e);
 			throw new TechnicalException("La connexion à la base de données n'a pas réussie", e);
 		} finally {
 			try {
+				if (cursor != null) {
+					cursor.close();
+				}
+				if (monStatement != null) {
+					monStatement.close();
+				}
 				if (conn != null) {
 					conn.close();
 				}
