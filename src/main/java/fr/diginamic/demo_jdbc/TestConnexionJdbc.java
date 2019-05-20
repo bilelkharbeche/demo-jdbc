@@ -5,6 +5,8 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
 
+import exception.TechnicalException;
+
 public class TestConnexionJdbc {
 
 	public static void main(String[] args) {
@@ -19,7 +21,7 @@ public class TestConnexionJdbc {
 		try {
 			Class.forName(driverName);
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			throw new TechnicalException("Le driver JDBC " + driverName + " n'a pas été trouvé ", e);
 		}
 
 		Connection conn = null;
@@ -28,14 +30,12 @@ public class TestConnexionJdbc {
 			conn = DriverManager.getConnection(url, "root", "lolbilel");
 			System.out.println(conn);
 		} catch (SQLException e) {
-			e.printStackTrace();
-			System.out.println(e.getMessage());
+			throw new TechnicalException("La connexion à la base de données n'a pas réussie", e);
 		} finally {
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				e.printStackTrace();
-				System.out.println(e);
+				throw new TechnicalException("La fermeture de la connexion à la base de données a échoué", e);
 			}
 		}
 
