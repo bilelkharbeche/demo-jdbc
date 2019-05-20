@@ -8,9 +8,14 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+
 import exception.TechnicalException;
 
 public class TestConnexionJdbc {
+
+	private static final Logger LOG = LoggerFactory.getLogger(TestConnexionJdbc.class);
 
 	/**
 	 * @param args
@@ -27,6 +32,7 @@ public class TestConnexionJdbc {
 		try {
 			Class.forName(driverName);
 		} catch (ClassNotFoundException e) {
+			LOG.error("La connexion à la base de données n'a pas pu s'établir", e);
 			throw new TechnicalException("Le driver JDBC " + driverName + " n'a pas été trouvé ", e);
 		}
 
@@ -79,10 +85,10 @@ public class TestConnexionJdbc {
 
 			monStatement.executeUpdate("DELETE FROM ARTICLE");
 
-			// monStatement.execute(
-			// "CREATE TABLE ARTICLE(ID INTEGER not NULL, DESIGNATION
-			// VARCHAR(255), FOURNISSEUR VARCHAR(255), PRIX DECIMAL)");
+			monStatement.close();
+
 		} catch (SQLException e) {
+			LOG.error("La connexion à la base de données n'a pas pu s'établir", e);
 			throw new TechnicalException("La connexion à la base de données n'a pas réussie", e);
 		} finally {
 			try {
@@ -90,6 +96,7 @@ public class TestConnexionJdbc {
 					conn.close();
 				}
 			} catch (SQLException e) {
+				LOG.error("La connexion à la base de données n'a pas pu s'établir", e);
 				throw new TechnicalException("La fermeture de la connexion à la base de données a échoué", e);
 			}
 		}

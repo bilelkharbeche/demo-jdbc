@@ -2,9 +2,13 @@ package fr.diginamic.demo_jdbc;
 
 public class Article {
 
+	/** id : Integer id de l'article */
 	Integer id;
+	/** designation : String nom de l'article */
 	String designation;
+	/** fournisseur : String nom du fournisseur */
 	String fournisseur;
+	/** prix : Integer prix de l'article */
 	Integer prix;
 
 	public Article(Integer id, String designation, String fournisseur, Integer prix) {

@@ -1,0 +1,36 @@
+17:25:08.483 [main] ERROR f.d.demo_jdbc.TestConnexionJdbc - La connexion à la base de données n'a pas pu s'établir
+java.sql.SQLSyntaxErrorException: Unknown column 'DESIGNATIO' in 'field list'
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:120)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.StatementImpl.executeUpdateInternal(StatementImpl.java:1355)
+	at com.mysql.cj.jdbc.StatementImpl.executeLargeUpdate(StatementImpl.java:2128)
+	at com.mysql.cj.jdbc.StatementImpl.executeUpdate(StatementImpl.java:1264)
+	at fr.diginamic.demo_jdbc.TestConnexionJdbc.main(TestConnexionJdbc.java:47)
+17:25:57.030 [main] ERROR f.d.demo_jdbc.TestConnexionJdbc - La connexion à la base de données n'a pas pu s'établir
+java.sql.SQLSyntaxErrorException: Unknown column 'DESIGNATIO' in 'field list'
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:120)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.StatementImpl.executeUpdateInternal(StatementImpl.java:1355)
+	at com.mysql.cj.jdbc.StatementImpl.executeLargeUpdate(StatementImpl.java:2128)
+	at com.mysql.cj.jdbc.StatementImpl.executeUpdate(StatementImpl.java:1264)
+	at fr.diginamic.demo_jdbc.TestConnexionJdbc.main(TestConnexionJdbc.java:47)
+17:27:41.540 [main] ERROR f.d.demo_jdbc.TestConnexionJdbc - La connexion à la base de données n'a pas pu s'établir
+java.sql.SQLSyntaxErrorException: Unknown column 'DESIGNATIO' in 'field list'
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:120)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.StatementImpl.executeUpdateInternal(StatementImpl.java:1355)
+	at com.mysql.cj.jdbc.StatementImpl.executeLargeUpdate(StatementImpl.java:2128)
+	at com.mysql.cj.jdbc.StatementImpl.executeUpdate(StatementImpl.java:1264)
+	at fr.diginamic.demo_jdbc.TestConnexionJdbc.main(TestConnexionJdbc.java:47)
+17:30:00.700 [main] ERROR f.d.demo_jdbc.TestConnexionJdbc - La connexion à la base de données n'a pas pu s'établir
+java.sql.SQLSyntaxErrorException: Unknown column 'DESIGNATIO' in 'field list'
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:120)
+	at com.mysql.cj.jdbc.exceptions.SQLError.createSQLException(SQLError.java:97)
+	at com.mysql.cj.jdbc.exceptions.SQLExceptionsMapping.translateException(SQLExceptionsMapping.java:122)
+	at com.mysql.cj.jdbc.StatementImpl.executeUpdateInternal(StatementImpl.java:1355)
+	at com.mysql.cj.jdbc.StatementImpl.executeLargeUpdate(StatementImpl.java:2128)
+	at com.mysql.cj.jdbc.StatementImpl.executeUpdate(StatementImpl.java:1264)
+	at fr.diginamic.demo_jdbc.TestConnexionJdbc.main(TestConnexionJdbc.java:47)
