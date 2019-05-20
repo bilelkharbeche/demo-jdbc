@@ -2,13 +2,19 @@ package fr.diginamic.demo_jdbc;
 
 import java.sql.Connection;
 import java.sql.DriverManager;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 
 import exception.TechnicalException;
 
 public class TestConnexionJdbc {
 
+	/**
+	 * @param args
+	 */
 	public static void main(String[] args) {
 
 		ResourceBundle monFichierConf = ResourceBundle.getBundle("database");
@@ -27,13 +33,62 @@ public class TestConnexionJdbc {
 		Connection conn = null;
 
 		try {
-			conn = DriverManager.getConnection(url, "root", "lolbilel");
+			conn = DriverManager.getConnection(url, userName, password);
 			System.out.println(conn);
+
+			Statement monStatement = conn.createStatement();
+
+			monStatement.executeUpdate(
+					"INSERT INTO ARTICLE(ID, DESIGNATION, FOURNISSEUR, PRIX) VALUES (1,'Table','Ikea',10)");
+			monStatement.executeUpdate(
+					"INSERT INTO ARTICLE(ID, DESIGNATION, FOURNISSEUR, PRIX) VALUE(2,'Frigo','Ikea',0.5)");
+			monStatement.executeUpdate(
+					"INSERT INTO ARTICLE(ID, DESIGNATION, FOURNISSEUR, PRIX) VALUE(3,'Canape','Ikea',25)");
+			monStatement
+					.executeUpdate("INSERT INTO ARTICLE(ID, DESIGNATION, FOURNISSEUR, PRIX) VALUE(4,'Four','Ikea',15)");
+
+			monStatement.executeUpdate("UPDATE ARTICLE SET PRIX=PRIX*1.25 WHERE PRIX > 10");
+
+			ArrayList<Article> articles = new ArrayList();
+
+			ResultSet cursor = monStatement.executeQuery("SELECT * FROM ARTICLE");
+			while (cursor.next()) {
+				Integer id = cursor.getInt("ID");
+				String designation = cursor.getString("DESIGNATION");
+				String fournisseur = cursor.getString("FOURNISSEUR");
+				Integer prix = cursor.getInt("PRIX");
+
+				Article article = new Article(id, designation, fournisseur, prix);
+				articles.add(article);
+			}
+
+			for (int i = 0; i < articles.size(); i++) {
+				System.out.println(articles.get(i));
+			}
+
+			cursor.close();
+
+			ResultSet curs = monStatement.executeQuery("SELECT AVG(PRIX) AS Moyenne FROM ARTICLE");
+
+			if (curs.next()) {
+				double moyenne = curs.getDouble("Moyenne");
+				System.out.println(moyenne);
+			}
+
+			curs.close();
+
+			monStatement.executeUpdate("DELETE FROM ARTICLE");
+
+			// monStatement.execute(
+			// "CREATE TABLE ARTICLE(ID INTEGER not NULL, DESIGNATION
+			// VARCHAR(255), FOURNISSEUR VARCHAR(255), PRIX DECIMAL)");
 		} catch (SQLException e) {
 			throw new TechnicalException("La connexion à la base de données n'a pas réussie", e);
 		} finally {
 			try {
-				conn.close();
+				if (conn != null) {
+					conn.close();
+				}
 			} catch (SQLException e) {
 				throw new TechnicalException("La fermeture de la connexion à la base de données a échoué", e);
 			}
