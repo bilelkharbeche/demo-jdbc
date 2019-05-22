@@ -42,7 +42,7 @@ public class TestConnexionJdbc {
 
 		try {
 			conn = DriverManager.getConnection(url, userName, password);
-			System.out.println(conn);
+			conn.setAutoCommit(false);
 
 			monStatement = conn.createStatement();
 
@@ -83,13 +83,18 @@ public class TestConnexionJdbc {
 				System.out.println(moyenne);
 			}
 
-			// curs.close();
-
 			monStatement.executeUpdate("DELETE FROM ARTICLE");
 
-			// monStatement.close();
+			conn.commit();
 
 		} catch (SQLException e) {
+			try {
+				if (conn != null) {
+					conn.rollback();
+				}
+			} catch (SQLException e1) {
+				LOG.error("Le rollback a échoué", e1);
+			}
 			LOG.error("La connexion à la base de données n'a pas pu s'établir", e);
 			throw new TechnicalException("La connexion à la base de données n'a pas réussie", e);
 		} finally {
